@@ -1,19 +1,21 @@
+import re
+
 print("Напишите цифру")
 tasks = []
+pattern = r"\d+"
 
-def Entering_tasks():
-    entering_tasks = input()
-    while entering_tasks != "стоп":
-        
+def entering():
+    coming = input()
+    while coming != "стоп":
         task = {
-                "title": entering_tasks,
+                "title": coming,
                 "done": False
             }
-
         tasks.append(task)
-        entering_tasks = input()
+        coming = input()
 
-def Print_tasks():
+def output():
+    global new_tasks
     numbering = 0
     symbol = 0
     for task in tasks:
@@ -27,16 +29,51 @@ def Print_tasks():
         print(symbol, end=" ")
         print(task["title"])
     
-def Select_an_action():
-    check_mark = int(input()) 
-    if tasks[check_mark-1]["done"] == False:
-        tasks[check_mark-1]["done"] = True
-    elif tasks[check_mark-1]["done"] == True:
-        tasks[check_mark-1]["done"] = False
+def select():
+    check = input()
+    if re.fullmatch(pattern, check):
+        inspect = int(check)
+        if 1 <= inspect <= len(tasks):
+            if tasks[inspect-1]["done"] == False:
+                tasks[inspect-1]["done"] = True
+            elif tasks[inspect-1]["done"] == True:
+                tasks[inspect-1]["done"] = False
+        else:
+            print("Ошибка!")
+    else:
+        print("Ошибка!")
 
-def Delete_task():
-    numbering2 = int(input())
-    del tasks[numbering2-1]
+def delete():
+    number = input()
+    if re.fullmatch(pattern, number):
+        total = int(number)
+        if 1 <= total <= len(tasks):
+            del tasks[total-1]
+        else:
+            print("Ошибка!")
+    else:
+        print("Ошибка!")
+    
+def point():
+    global tasks
+    point = input()
+    new_tasks = []
+    if re.fullmatch(pattern, point):
+        indicate = int(point)
+        print(f"Введите задачи (для окончания введите 'стоп')")
+        new_com = input()
+        while new_com != "стоп":
+            new_task = {
+                    "title": new_com,
+                    "done": False
+                }
+            new_tasks.insert(0, new_task)
+            if len(new_tasks) > indicate:
+                new_tasks.pop()
+            new_com = input()
+    else:
+        print("Ошибка!")
+    tasks = new_tasks + tasks
 
 while True:
     print("======================================")
@@ -44,24 +81,33 @@ while True:
     print("2 - Отметить задачу")
     print("3 - Удалить задачу")
     print("4 - Показать список")
+    print("5 - Новая функция")
     print("0 - Выход")
     print("======================================")
-    select_an_action2 = int(input())
-    if select_an_action2 == 1:
-        print("Напиши свои задачи, чтобы закончить напишите слово 'стоп'")
-        Entering_tasks()
-        Print_tasks()
-    elif select_an_action2 == 2:
-        print("Напиши номер задачи, которыъую ты хочешь отметить")
-        Select_an_action()
-        Print_tasks()
-    elif select_an_action2 == 3:
-        print("Напиши номер задачи, которую ты хочешь удалить")
-        Delete_task()
-        Print_tasks()
-    elif select_an_action2 == 4:
-        print("Действующий список:")
-        Print_tasks()
-    elif select_an_action2 == 0 or select_an_action2 > 4:
-        print("ПОКА")
-        break
+
+    pick = input()
+    if re.fullmatch(pattern, pick):
+        choose = int(pick)
+        if choose == 1:
+            print("Напиши свои задачи, чтобы закончить напишите слово 'стоп'")
+            entering()
+            output()
+        elif choose == 2:
+            print("Напишите номер задачи, которую хотите отметить")
+            select()
+            output()
+        elif choose == 3:
+            print("Напишите номер задачи, которую хотите удалить")
+            delete()
+            output()
+        elif choose == 4:
+            print("Действующий список:")
+            output()
+        elif choose == 5:
+            print("Введите количество задач, которые хотите написать")
+            point()
+            output()
+        else:
+            print("Ошибка! Пока!")
+            break
+        
