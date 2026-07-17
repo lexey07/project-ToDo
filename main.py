@@ -1,18 +1,13 @@
+import re
 from add import add_subtasks, add_task
-from top import integer_pattern, re
-from display import show 
+from utils import integer_pattern
+from display import show, show_main_menu, show_add_menu, show_incorrect_input
 from remove import delete
 from marker import select
-from messages import main_menu_actions, add_menu_actions, placeholders
 
-def print_main_menu():
-    print(main_menu_actions["menu"])
-
-def print_add_menu():
-    print(add_menu_actions["menu"])
 
 def add():
-    print_add_menu()
+    show_add_menu()
     menu_choice_input = input()
 
     if re.fullmatch(integer_pattern, menu_choice_input):
@@ -27,22 +22,17 @@ def add():
             show()
 
         else:
-            print(placeholders["incorrect_input"])
-            
-    else:
-        print(placeholders["incorrect_input"])
+            show_incorrect_input()
 
-actions = {
-        1: add,
-        2: select,
-        3: delete,
-        4: show
-    }
+    else:
+        show_incorrect_input()
+
+
+actions = {1: add, 2: select, 3: delete, 4: show}
 
 # Меню
-
 while True:
-    print_main_menu()
+    show_main_menu()
 
     try:
         menu_choice_input = input()
@@ -56,12 +46,11 @@ while True:
 
         else:
             raise ValueError
-        
+
     except ValueError:
-        print(placeholders["incorrect_input"])
+        show_incorrect_input()
 
 # Меню 2
-
 # while True:
 #     print_main_menu()
 #     menu_choice_input = input()
@@ -76,7 +65,7 @@ while True:
 #             actions[choose]()
 
 #         else:
-#             print(placeholders["incorrect_input"])
+#             show_incorrect_input()
 
 #     else:
-#         print(placeholders["incorrect_input"])
+#         show_incorrect_input()
