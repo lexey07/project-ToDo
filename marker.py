@@ -28,10 +28,10 @@ def select():
 
         elif re.fullmatch(subtask_number_pattern, user_input):
             task_parts = user_input.split(".")
-            task_number = int(task_parts[0])
+            task_number = int(task_parts[1])
             subtask_number = int(task_parts[1])
 
-            if 1 <= task_number <= task_list.task_count():
+            if 1 <= task_number <= task_list.task_count:
                 task = task_list.get_task(task_number - 1)
 
                 if 1 <= subtask_number <= len(task.subtasks):

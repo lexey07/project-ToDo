@@ -1,6 +1,6 @@
 import re
 
-from utils import TASK_COUNT, integer_pattern
+from utils import integer_pattern
 from display import show, show_incorrect_input
 from messages import placeholders
 from task import Task

@@ -15,7 +15,7 @@ class Task:
             subtask.done = self.done
         
     def toggle_subtask(self, index):
-        subtask = self.subtasks[index]
+        subtask = self.subtasks[index - 1]
         subtask.done = not subtask.done
 
         self.done = all(subtask.done for subtask in self.subtasks)
