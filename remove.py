@@ -1,7 +1,7 @@
 import re
 
 from utils import integer_pattern, subtask_number_pattern
-from display import show, show_incorrect_input
+from display import show, show_incorrect_input, show_message
 from messages import placeholders
 from task_list import task_list
 
@@ -9,10 +9,9 @@ from task_list import task_list
 # Удалить задачу
 def delete():
     if task_list.is_empty():
-        print(placeholders["enter_task_first"])
+        show_message(placeholders["enter_task_first"])
 
     else:
-        show()
         user_input = input(placeholders["actual_task"])
 
         if re.fullmatch(integer_pattern, user_input):

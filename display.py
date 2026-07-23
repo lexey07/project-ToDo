@@ -49,3 +49,6 @@ def show():
 
         if task.subtasks:
             show_subtasks(task, task_number)
+
+def show_message():
+    print(show_message)

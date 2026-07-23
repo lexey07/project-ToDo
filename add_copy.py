@@ -6,34 +6,10 @@ from messages import placeholders
 from task import Task
 from task_list import task_list
 
-
-# Ввод задач, под определенное количество. Ввод подзадач
-# def add_task():
-#     current_task = None
-#     user_input = input(placeholders["enter_tasks"])
-
-#     while user_input != "стоп":
-#         if user_input.startswith("-"):
-#             if current_task is None:
-#                 show_message(placeholders["enter_task_first"])
-
-#             else:
-#                 subtask = Task(user_input)
-#                 current_task.add_subtask(subtask)
-
-#         else:
-#             task = Task(user_input)
-#             current_task = task
-
-#             task_list.add_task(task)
-
-#         user_input = input()
-
-
 def add_task():
     current_task = None
 
-    for user_input in iter(input, "стоп"):
+    for user_input in iter(input, "стоп"): # 'iter(input, "стоп") - замсеняет while и постоянный вызов
         if user_input.startswith("-"):
             if current_task is None:
                 show_message(placeholders["enter_task_first"])
@@ -61,15 +37,14 @@ def add_subtasks():
             task_number = int(task_number_input)
 
             if 1 <= task_number <= task_list.task_count():
-                task = task_list.get_task(task_number - 1)                
+                task = task_list.get_task(task_number - 1)
+
                 show_message(placeholders["enter_subtasks"])
-                subtask_input = input()
 
-                while subtask_input != "стоп":
+                for subtask_input in iter(input, "стоп"):
                     subtask = Task(subtask_input)
-
                     task.add_subtask(subtask)
-                    subtask_input = input()
+
             else:
                 show_incorrect_input()
 
